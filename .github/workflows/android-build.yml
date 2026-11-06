@@ -1,0 +1,81 @@
+name: Build WoodOS
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+jobs:
+  build:
+    name: Build & test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Cache Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest --stacktrace
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Build release APK
+        env:
+          WOODOS_KEYSTORE: ${{ secrets.WOODOS_KEYSTORE != '' && 'release.keystore' || '' }}
+          WOODOS_STORE_PASSWORD: ${{ secrets.WOODOS_STORE_PASSWORD }}
+          WOODOS_KEY_ALIAS: ${{ secrets.WOODOS_KEY_ALIAS }}
+          WOODOS_KEY_PASSWORD: ${{ secrets.WOODOS_KEY_PASSWORD }}
+        run: |
+          if [ -n "$WOODOS_KEYSTORE" ]; then
+            echo "${{ secrets.WOODOS_KEYSTORE }}" | base64 --decode > release.keystore
+          fi
+          ./gradlew assembleRelease --stacktrace
+
+      - name: Upload debug APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WoodOS-debug
+          path: app/build/outputs/apk/debug/WoodOS-debug.apk
+
+      - name: Upload release APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WoodOS-release
+          path: app/build/outputs/apk/release/WoodOS-release.apk
+
+  release:
+    name: GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download APKs
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/WoodOS-debug/WoodOS-debug.apk
+            artifacts/WoodOS-release/WoodOS-release.apk
+          generate_release_notes: true

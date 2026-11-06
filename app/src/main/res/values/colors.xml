@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#101014</color>
+    <color name="launcher_foreground">#E8A15D</color>
+    <color name="ink">#F2F2F4</color>
+    <color name="ink_dim">#9A9AA2</color>
+    <color name="surface_dark">#16161A</color>
+    <color name="surface_dark_alt">#1F1F24</color>
+    <color name="surface_light">#F4F3F1</color>
+    <color name="surface_light_alt">#E9E7E3</color>
+    <color name="accent_default">#E8A15D</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>

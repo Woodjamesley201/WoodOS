@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/homeRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Top: brand, clock, date, status chips -->
+    <LinearLayout
+        android:id="@+id/homeTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_logo"
+                android:id="@+id/logoIcon"/>
+
+            <TextView
+                android:id="@+id/logoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.12"
+                android:textColor="@color/ink"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="64sp"
+            android:textStyle="bold"
+            android:textColor="@color/ink"
+            android:layout_marginTop="18dp"/>
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/ink_dim"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:id="@+id/statusChips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="14dp"/>
+    </LinearLayout>
+
+    <!-- Center: favorites -->
+    <FrameLayout
+        android:id="@+id/favoritesArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <GridView
+            android:id="@+id/favGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="auto_fit"
+            android:columnWidth="92dp"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="14dp"
+            android:padding="16dp"
+            android:clipToPadding="false"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/emptyFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/empty_favorites_hint"
+            android:textColor="@color/ink_dim"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <!-- Bottom bar -->
+    <LinearLayout
+        android:id="@+id/homeBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="14dp">
+
+        <Button
+            android:id="@+id/appsBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/drawer_apps"
+            android:drawableStart="@drawable/ic_apps"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/ink"
+            android:textColor="@color/ink"/>
+
+        <Button
+            android:id="@+id/deskBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:text="@string/desk_name"
+            android:drawableStart="@drawable/ic_desk"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/ink"
+            android:textColor="@color/ink"/>
+
+        <ImageView
+            android:id="@+id/settingsBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="18dp"
+            android:padding="11dp"
+            android:src="@drawable/ic_settings"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_title"/>
+    </LinearLayout>
+
+    <!-- App drawer -->
+    <LinearLayout
+        android:id="@+id/drawerPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="@drawable/bg_drawer"
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp"
+        android:elevation="12dp">
+
+        <View
+            android:layout_width="44dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_pill"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingTop="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_search"
+                android:id="@+id/drawerSearchIcon"/>
+
+            <EditText
+                android:id="@+id/drawerSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:hint="@string/drawer_search_hint"
+                android:textColorHint="@color/ink_dim"
+                android:textColor="@color/ink"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:background="@null"
+                android:padding="8dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Wood.Label"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/drawer_recent"
+            android:visibility="gone"/>
+
+        <HorizontalScrollView
+            android:id="@+id/recentScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/recentRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+        </HorizontalScrollView>
+
+        <GridView
+            android:id="@+id/drawerGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:numColumns="auto_fit"
+            android:columnWidth="84dp"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="14dp"
+            android:padding="14dp"
+            android:clipToPadding="false"
+            android:scrollbars="none"/>
+    </LinearLayout>
+
+    <!-- Drop target shown while rearranging favorites -->
+    <FrameLayout
+        android:id="@+id/trashTarget"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="96dp"
+        android:background="@drawable/bg_circle"
+        android:visibility="gone"
+        android:elevation="16dp">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_delete"
+            android:id="@+id/trashIcon"/>
+    </FrameLayout>
+</FrameLayout>
