@@ -22,8 +22,8 @@ android {
     signingConfigs {
         create("release") {
             val ksPath = System.getenv("WOODOS_KEYSTORE")
-            if (!ksPath.isNullOrBlank() && file(ksPath).exists()) {
-                storeFile = file(ksPath)
+            if (!ksPath.isNullOrBlank() && rootProject.file(ksPath).exists()) {
+                storeFile = rootProject.file(ksPath)
                 storePassword = System.getenv("WOODOS_STORE_PASSWORD")
                 keyAlias = System.getenv("WOODOS_KEY_ALIAS")
                 keyPassword = System.getenv("WOODOS_KEY_PASSWORD")
